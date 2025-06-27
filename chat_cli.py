@@ -4,13 +4,16 @@ Interactive CLI for the YAML calendar bot.
 
 Run:  python -m asyncio chat_cli.py
 Requires:
-    pip install openai openai-agents-python pyyaml
-    export OPENAI_API_KEY=...
+    pip install openai openai-agents-python pyyaml python-dotenv
 """
 
 import asyncio, datetime as dt
+from dotenv import load_dotenv
 from agents import Runner
 from calendar_bot import scheduler  # <- your Agent with tools & YAML helpers
+
+# Load environment variables from .env file
+load_dotenv()
 
 async def chat() -> None:
     conversation = []                          # full history for this session

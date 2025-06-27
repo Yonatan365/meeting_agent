@@ -1,18 +1,22 @@
 """
 YAML meeting bot (scalar = free, mapping = booked).
 
-pip install openai openai-agents-python pyyaml
-export OPENAI_API_KEY=...
+pip install openai openai-agents-python pyyaml python-dotenv
 """
 
 import asyncio, os, datetime as dt, yaml
 from typing import List, Dict, Union
 from openai import OpenAI
 import datetime
+from dotenv import load_dotenv
 from agents import Agent, Runner, function_tool         # openai-agents-python ≥0.2
                                                        #  [oai_citation:8‡github.com](https://github.com/openai/openai-agents-python/issues/43?utm_source=chatgpt.com)
+
+# Load environment variables from .env file
+load_dotenv()
+
 DB_PATH = "calendar.yml"
-openai = OpenAI()
+openai = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 today = dt.date.today()            
 weekday = today.strftime("%A")     
 # ────────────────── persistence helpers ────────────────────────────
@@ -110,7 +114,7 @@ Current date: {weekday}, {today.isoformat()}.
 ## Tools
 • list_slots(date_iso) → returns {{ "free": [HH:MM, …], "booked": […] }}  
 • book_slot(date_iso, hour, attendee)  
-• cancel_slot(date_iso, hour \| null, attendee) …
+• cancel_slot(date_iso, hour | null, attendee) …
 
 ## Operating rules
 1. **Booking** – always ask for or confirm the attendee’s name before

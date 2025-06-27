@@ -1,14 +1,17 @@
 # app.py – Streamlit chat UI for the YAML-Calendar agent
 #
 # Run:
-#   pip install streamlit openai openai-agents-python pyyaml
-#   export OPENAI_API_KEY=...
+#   pip install streamlit openai openai-agents-python pyyaml python-dotenv
 #   streamlit run app.py
 #
 import asyncio
 import streamlit as st
+from dotenv import load_dotenv
 from agents import Runner
 from calendar_bot import scheduler   # your Agent object with tools
+
+# Load environment variables from .env file
+load_dotenv()
 
 st.set_page_config(page_title="Calendar Bot", layout="wide")
 st.title("📅 Yonatan's Calendar Bot")
