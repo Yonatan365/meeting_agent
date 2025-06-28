@@ -1,5 +1,5 @@
 openai
-openai-agents-python
+openai-agents
 pyyaml
 python-dotenv
 streamlit
